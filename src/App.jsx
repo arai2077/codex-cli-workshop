@@ -423,17 +423,21 @@ function OptionalExerciseSection() {
           <CardContent className="space-y-4">
             {showPrompts ? (
               <>
+                <p className="text-sm font-medium text-muted-foreground">Step 1 — understand and plan</p>
                 <PromptBlock>
-                  {`# Step 1 — understand and plan\ncodex "Look at the tasker CLI entry point and describe how arguments are parsed and passed to the task service. Do not make any changes yet."`}
+                  {`Look at the tasker CLI entry point and describe how arguments are parsed and passed to the task service. Do not make any changes yet.`}
                 </PromptBlock>
+                <p className="text-sm font-medium text-muted-foreground">Step 2 — make the first change</p>
                 <PromptBlock>
-                  {`# Step 2 — make the first change\ncodex "Add a --format flag that accepts 'plain' or 'json'. For now it only needs to be parsed and stored; it does not need to change output yet. Keep the change minimal."`}
+                  {`Add a --format flag that accepts 'plain' or 'json'. For now it only needs to be parsed and stored; it does not need to change output yet. Keep the change minimal.`}
                 </PromptBlock>
+                <p className="text-sm font-medium text-muted-foreground">Step 3 — wire up the behaviour</p>
                 <PromptBlock>
-                  {`# Step 3 — wire up the behaviour\ncodex "Now use the --format flag to change how tasks are printed. When 'json' is chosen, output a JSON array of task objects. Do not touch any other behaviour."`}
+                  {`Now use the --format flag to change how tasks are printed. When 'json' is chosen, output a JSON array of task objects. Do not touch any other behaviour.`}
                 </PromptBlock>
+                <p className="text-sm font-medium text-muted-foreground">Step 4 — review and tighten</p>
                 <PromptBlock>
-                  {`# Step 4 — review and tighten\ncodex "Review everything you changed across all three steps. Remove any dead code, fix any inconsistencies, and make sure the flag is documented in the help text."`}
+                  {`Review everything you changed across all three steps. Remove any dead code, fix any inconsistencies, and make sure the flag is documented in the help text. Write a brief summary of the changes at the end.`}
                 </PromptBlock>
               </>
             ) : (
