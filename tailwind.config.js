@@ -5,30 +5,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: 'hsl(240 5.9% 90%)',
-        input: 'hsl(240 5.9% 90%)',
-        ring: 'hsl(240 5.9% 10%)',
-        background: 'hsl(0 0% 100%)',
-        foreground: 'hsl(240 10% 3.9%)',
+        border: 'hsl(222 13% 24%)',
+        input: 'hsl(222 13% 24%)',
+        ring: 'hsl(210 40% 70%)',
+        background: 'hsl(222 13% 13%)',
+        foreground: 'hsl(210 40% 96%)',
         primary: {
-          DEFAULT: 'hsl(240 5.9% 10%)',
-          foreground: 'hsl(0 0% 98%)',
+          DEFAULT: 'hsl(210 40% 90%)',
+          foreground: 'hsl(222 13% 13%)',
         },
         secondary: {
-          DEFAULT: 'hsl(240 4.8% 95.9%)',
-          foreground: 'hsl(240 5.9% 10%)',
+          DEFAULT: 'hsl(222 13% 22%)',
+          foreground: 'hsl(210 40% 96%)',
         },
         muted: {
-          DEFAULT: 'hsl(240 4.8% 95.9%)',
-          foreground: 'hsl(240 3.8% 46.1%)',
+          DEFAULT: 'hsl(222 13% 20%)',
+          foreground: 'hsl(215 20% 60%)',
         },
         accent: {
-          DEFAULT: 'hsl(240 4.8% 95.9%)',
-          foreground: 'hsl(240 5.9% 10%)',
+          DEFAULT: 'hsl(222 13% 22%)',
+          foreground: 'hsl(210 40% 96%)',
         },
         card: {
-          DEFAULT: 'hsl(0 0% 100%)',
-          foreground: 'hsl(240 10% 3.9%)',
+          DEFAULT: 'hsl(222 13% 17%)',
+          foreground: 'hsl(210 40% 96%)',
         },
       },
       borderRadius: {

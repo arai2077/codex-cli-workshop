@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { create } from 'zustand'
-import { BookOpen, CheckCircle2, ChevronRight, Code2, Compass, Lightbulb, TerminalSquare } from 'lucide-react'
+import { BookOpen, Check, CheckCircle2, ChevronRight, Code2, Compass, Copy, Lightbulb, TerminalSquare } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -33,9 +33,22 @@ function SectionIntro({ eyebrow, title, description }) {
 }
 
 function PromptBlock({ children }) {
+  const [copied, setCopied] = useState(false)
+  function handleCopy() {
+    navigator.clipboard.writeText(children)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
   return (
-    <div className="rounded-2xl bg-slate-950 p-4 text-sm leading-6 text-slate-50 shadow-soft">
-      <code className="whitespace-pre-wrap break-words">{children}</code>
+    <div className="flex items-start gap-2 rounded-2xl bg-slate-950 p-4 text-sm leading-6 text-slate-50 shadow-soft">
+      <code className="flex-1 whitespace-pre-wrap break-words">{children}</code>
+      <button
+        onClick={handleCopy}
+        className="shrink-0 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-50"
+        aria-label="Copy to clipboard"
+      >
+        {copied ? <Check size={16} /> : <Copy size={16} />}
+      </button>
     </div>
   )
 }
@@ -50,6 +63,37 @@ function BulletList({ items }) {
   )
 }
 
+const CLONE_CMD = 'git clone https://github.com/arai2077/codex-cli-example-repo.git'
+
+function CloneCard() {
+  const [copied, setCopied] = useState(false)
+  function handleCopy() {
+    navigator.clipboard.writeText(CLONE_CMD)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Get the example repository</CardTitle>
+        <CardDescription>Clone this repo before starting the exercises.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 text-sm text-slate-50 shadow-soft">
+          <code className="flex-1 break-all font-mono">{CLONE_CMD}</code>
+          <button
+            onClick={handleCopy}
+            className="shrink-0 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-50"
+            aria-label="Copy to clipboard"
+          >
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+          </button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
 function WelcomeSection({ onNavigate }) {
   return (
     <div className="space-y-6">
@@ -59,6 +103,7 @@ function WelcomeSection({ onNavigate }) {
         description="This website gives you an overview of the workshop flow, instructions, prompts, and exercises to get started with Codex CLI."
       />
 
+      <CloneCard />
       <div className="grid gap-4">
         <Card>
           <CardHeader>
@@ -95,6 +140,9 @@ function MentalModelSection() {
         title="Mental model: chat vs. agent"
         description="Codex CLI does more than answer questions. It can inspect files, propose changes, and work through tasks inside a repository."
       />
+      <div className="rounded-2xl border border-yellow-500/40 bg-yellow-500/10 px-4 py-3 text-sm leading-6 text-yellow-200">
+        <span className="font-semibold">Important: </span>Only open Codex CLI in a directory it is allowed to read. Do not use it on customers' code unless explicitly allowed by the customer.
+      </div>
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
@@ -177,7 +225,7 @@ function RefactoringDemoSection() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Demo steps</CardTitle>
+            <CardTitle>Write a good prompt</CardTitle>
             <CardDescription>Focus on giving your prompt enough context and details.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -185,7 +233,7 @@ function RefactoringDemoSection() {
               <div className="mb-2 font-medium">Example bad prompt</div>
               <div className="rounded-xl bg-muted p-3 font-mono text-sm">Improve this code.</div>
             </div>
-            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">An ambiguous prompt might give the desired result...or might not. To avoid unexpected outcomes, provide clear and detailed instructions.</p>
+            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">A vague prompt might give the desired result...or might not. To avoid unexpected outcomes, provide clear and detailed instructions.</p>
             <div>
               <div className="mb-2 font-medium">Think of the following in your prompts:</div>
               <BulletList items={['Objective', 'Context', 'Constraints', 'Scope', 'Output request']} />
@@ -225,8 +273,8 @@ function FeatureExerciseSection() {
           <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
             <ol className="list-decimal space-y-2 pl-5">
               <li>Inspect the repository briefly.</li>
-              <li>Write your own prompt.</li>
-              <li>Run Codex CLI.</li>
+              <li>Run Codex CLI in the repository.</li>
+              <li>Write your first prompt.</li>
               <li>Review the changed files.</li>
               <li>Refine the prompt if the result is too broad or unclear.</li>
             </ol>
@@ -240,11 +288,11 @@ function FeatureExerciseSection() {
             {showPrompts ? (
               <>
                 <PromptBlock>
-                  {`codex "Add a --verbose flag to the CLI. When enabled, it should print extra information about how tasks are loaded and filtered. Keep the implementation simple and beginner-friendly. Update only the files that are necessary, and explain what changed."`}
+                  {`Add a --verbose flag to the CLI. When enabled, it should print extra information about how tasks are loaded and filtered. Keep the implementation simple and beginner-friendly. Update only the files that are necessary, and explain what changed.`}
                 </PromptBlock>
                 <p className="text-sm leading-6 text-muted-foreground">Optional follow-up</p>
                 <PromptBlock>
-                  {`codex "Review your changes critically. Did you introduce any unnecessary complexity or alter behavior? If so, simplify the implementation while preserving the same functionality."`}
+                  {`Review your changes critically. Did you introduce any unnecessary complexity or alter behavior? If so, simplify the implementation while preserving the same functionality.`}
                 </PromptBlock>
               </>
             ) : (
@@ -261,7 +309,7 @@ function FeatureExerciseSection() {
           {[
             'Did Codex CLI touch only the files you expected?',
             'Was the flag wired up correctly end-to-end, or did it need follow-up prompts?',
-            'How did specifying scope and constraints affect the diff size?',
+            'Did specifying scope and constraints affect the diff size?',
             'What would you change in your prompt if you ran this again?',
           ].map((item) => (
             <div key={item} className="rounded-2xl border p-3">
@@ -295,7 +343,7 @@ function TestExerciseSection() {
             <ol className="list-decimal space-y-2 pl-5">
               <li>Explore the repository to understand the reporting logic.</li>
               <li>Write a prompt that describes what you want tested and how.</li>
-              <li>Run Codex CLI and inspect the generated test file.</li>
+              <li>Inspect the generated test file.</li>
               <li>Run the tests and check that they pass.</li>
               <li>Refine the prompt if coverage or readability is lacking.</li>
             </ol>
@@ -309,11 +357,11 @@ function TestExerciseSection() {
             {showPrompts ? (
               <>
                 <PromptBlock>
-                  {`codex "Write pytest tests for the reporting logic in this repository. Cover the main expected behavior and at least one edge case. Keep the tests readable and avoid unnecessary mocking. Explain what scenarios are now covered."`}
+                  {`Write pytest tests for the reporting logic in this repository. Cover the main expected behavior and at least one edge case. Keep the tests readable and avoid unnecessary mocking. Explain what scenarios are now covered.`}
                 </PromptBlock>
                 <p className="text-sm leading-6 text-muted-foreground">Optional follow-up</p>
                 <PromptBlock>
-                  {`codex "Review the tests you just wrote. Are there any redundant assertions or missing edge cases? Improve the suite without adding unnecessary complexity."`}
+                  {`Review the tests you just wrote. Are there any redundant assertions or missing edge cases? Improve the suite without adding unnecessary complexity.`}
                 </PromptBlock>
               </>
             ) : (
@@ -328,9 +376,8 @@ function TestExerciseSection() {
         </CardHeader>
         <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
           {[
-            'Did the generated tests cover behavior you would have missed writing them by hand?',
-            'Were there any assertions that felt too tightly coupled to implementation details?',
             'Did the tests pass on the first run, or did they require fixes?',
+            'Did the generated tests cover behavior you would have missed writing them by hand?',
             'How did asking for an explanation change your understanding of the coverage?',
           ].map((item) => (
             <div key={item} className="rounded-2xl border p-3">
@@ -402,7 +449,6 @@ function OptionalExerciseSection() {
         <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
           {[
             'Did splitting the task into steps lead to smaller, easier-to-review diffs?',
-            'At which step did Codex CLI surprise you — in a good or bad way?',
             'Did an earlier step constrain or help the direction of a later one?',
             'Would a single large prompt have produced a better or worse result?',
           ].map((item) => (
@@ -476,14 +522,15 @@ function WrapUpSection() {
       />
       <Card>
         <CardHeader>
-          <CardTitle>Three takeaways</CardTitle>
+          <CardTitle>Main takeaways</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 md:grid-cols-3">
+          <div className="grid gap-3 md:grid-cols-2">
             {[
-              'Codex CLI is more useful when you treat it like an agent, not just a chatbot.',
+              'Coding agents are more useful when you treat them like a junior developer rather than a chatbot.',
               'Prompt quality directly affects scope, safety, and usefulness.',
               'Review is part of the workflow, not a cleanup step after it.',
+              'Iteration is normal and encouraged — you can refine the prompt based on the result until it’s right.',
             ].map((item) => (
               <div key={item} className="rounded-2xl border p-4 text-sm leading-6">
                 {item}
@@ -501,7 +548,7 @@ function WrapUpSection() {
           {[
             'Ask Codex CLI to explain a codebase you work on',
             'Refactor one messy file without changing behavior',
-            'Add one small CLI feature with clear constraints',
+            'Add one small feature with clear constraints',
             'Generate tests for a focused module',
           ].map((item) => (
             <div key={item} className="rounded-2xl bg-muted p-3 text-sm leading-6">
