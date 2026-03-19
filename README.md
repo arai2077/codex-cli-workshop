@@ -7,9 +7,9 @@ A production-ready workshop companion site built with React, Tailwind CSS, local
 - Landing page for workshop attendees
 - Agenda sidebar navigation
 - Sections for the workshop flow
-- Prompt-writing exercise
-- Hands-on implementation exercise
-- Tips, pitfalls, and wrap-up guidance
+- Demos
+- Hands-on implementation exercises
+- Tips, pitfalls, and wrap-up
 
 ## Tech stack
 
