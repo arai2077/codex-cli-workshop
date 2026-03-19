@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { create } from 'zustand'
 import { BookOpen, CheckCircle2, ChevronRight, Code2, Compass, Lightbulb, TerminalSquare } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -207,6 +208,7 @@ function RefactoringDemoSection() {
 }
 
 function FeatureExerciseSection() {
+  const [showPrompts, setShowPrompts] = useState(false)
   return (
     <div className="space-y-6">
       <SectionIntro
@@ -214,28 +216,43 @@ function FeatureExerciseSection() {
         title="Exercise 1: Implementing a feature"
         description="Use Codex CLI to implement a small new feature in the repository."
       />
-      <Card>
-        <CardHeader>
-          <CardTitle>Add a --verbose flag</CardTitle>
-          <CardDescription>Work in small steps and inspect the result carefully.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-          <ol className="list-decimal space-y-2 pl-5">
-            <li>Inspect the repository briefly.</li>
-            <li>Write your own prompt.</li>
-            <li>Run Codex CLI.</li>
-            <li>Review the changed files.</li>
-            <li>Refine the prompt if the result is too broad or unclear.</li>
-          </ol>
-          <PromptBlock>
-            {`codex "Add a --verbose flag to the CLI. When enabled, it should print extra information about how tasks are loaded and filtered. Keep the implementation simple and beginner-friendly. Update only the files that are necessary, and explain what changed."`}
-          </PromptBlock>
-          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Optional follow-up prompt</p>
-          <PromptBlock>
-            {`codex "Review your changes critically. Did you introduce any unnecessary complexity or alter behavior? If so, simplify the implementation while preserving the same functionality."`}
-          </PromptBlock>
-        </CardContent>
-      </Card>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Add a --verbose flag</CardTitle>
+            <CardDescription>Work in small steps and inspect the result carefully.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
+            <ol className="list-decimal space-y-2 pl-5">
+              <li>Inspect the repository briefly.</li>
+              <li>Write your own prompt.</li>
+              <li>Run Codex CLI.</li>
+              <li>Review the changed files.</li>
+              <li>Refine the prompt if the result is too broad or unclear.</li>
+            </ol>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Example prompts</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {showPrompts ? (
+              <>
+                <PromptBlock>
+                  {`codex "Add a --verbose flag to the CLI. When enabled, it should print extra information about how tasks are loaded and filtered. Keep the implementation simple and beginner-friendly. Update only the files that are necessary, and explain what changed."`}
+                </PromptBlock>
+                <p className="text-sm leading-6 text-muted-foreground">Optional follow-up</p>
+                <PromptBlock>
+                  {`codex "Review your changes critically. Did you introduce any unnecessary complexity or alter behavior? If so, simplify the implementation while preserving the same functionality."`}
+                </PromptBlock>
+              </>
+            ) : (
+              <Button variant="outline" onClick={() => setShowPrompts(true)}>Click me for example prompts</Button>
+            )}
+          </CardContent>
+        </Card>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>Reflection</CardTitle>
@@ -260,6 +277,7 @@ function FeatureExerciseSection() {
 
 
 function TestExerciseSection() {
+  const [showPrompts, setShowPrompts] = useState(false)
   return (
     <div className="space-y-6">
       <SectionIntro
@@ -267,28 +285,43 @@ function TestExerciseSection() {
         title="Exercise 2: Writing tests"
         description="Use Codex CLI to generate meaningful tests for existing code."
       />
-      <Card>
-        <CardHeader>
-          <CardTitle>Write tests for the reporting logic</CardTitle>
-          <CardDescription>Focus on readable tests that cover real behavior, not implementation details.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-          <ol className="list-decimal space-y-2 pl-5">
-            <li>Explore the repository to understand the reporting logic.</li>
-            <li>Write a prompt that describes what you want tested and how.</li>
-            <li>Run Codex CLI and inspect the generated test file.</li>
-            <li>Run the tests and check that they pass.</li>
-            <li>Refine the prompt if coverage or readability is lacking.</li>
-          </ol>
-          <PromptBlock>
-            {`codex "Write pytest tests for the reporting logic in this repository. Cover the main expected behavior and at least one edge case. Keep the tests readable and avoid unnecessary mocking. Explain what scenarios are now covered."`}
-          </PromptBlock>
-          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Optional follow-up prompt</p>
-          <PromptBlock>
-            {`codex "Review the tests you just wrote. Are there any redundant assertions or missing edge cases? Improve the suite without adding unnecessary complexity."`}
-          </PromptBlock>
-        </CardContent>
-      </Card>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Write tests for the reporting logic</CardTitle>
+            <CardDescription>Focus on readable tests that cover real behavior, not implementation details.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
+            <ol className="list-decimal space-y-2 pl-5">
+              <li>Explore the repository to understand the reporting logic.</li>
+              <li>Write a prompt that describes what you want tested and how.</li>
+              <li>Run Codex CLI and inspect the generated test file.</li>
+              <li>Run the tests and check that they pass.</li>
+              <li>Refine the prompt if coverage or readability is lacking.</li>
+            </ol>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Example prompts</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {showPrompts ? (
+              <>
+                <PromptBlock>
+                  {`codex "Write pytest tests for the reporting logic in this repository. Cover the main expected behavior and at least one edge case. Keep the tests readable and avoid unnecessary mocking. Explain what scenarios are now covered."`}
+                </PromptBlock>
+                <p className="text-sm leading-6 text-muted-foreground">Optional follow-up</p>
+                <PromptBlock>
+                  {`codex "Review the tests you just wrote. Are there any redundant assertions or missing edge cases? Improve the suite without adding unnecessary complexity."`}
+                </PromptBlock>
+              </>
+            ) : (
+              <Button variant="outline" onClick={() => setShowPrompts(true)}>Click me for example prompts</Button>
+            )}
+          </CardContent>
+        </Card>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>Reflection</CardTitle>
@@ -311,38 +344,54 @@ function TestExerciseSection() {
 }
 
 function OptionalExerciseSection() {
+  const [showPrompts, setShowPrompts] = useState(false)
   return (
     <div className="space-y-6">
       <SectionIntro
         eyebrow="Optional Exercise"
-        title="Compare a bad prompt to a good prompt"
-        description="Pick any part of the repository and run Codex CLI twice — once with a vague prompt, once with a specific one. Compare the results."
+        title="Exercise 3: Iterative prompting"
+        description="Practice breaking a larger change into a sequence of focused prompts, each building on the last."
       />
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Step 1: run the bad prompt</CardTitle>
-            <CardDescription>Keep it vague — no context, no constraints, no output request.</CardDescription>
+            <CardTitle>Pick a target and go step by step</CardTitle>
+            <CardDescription>Choose any part of the repository you want to improve. The goal is the process, not the destination.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-            <p>Pick any file or feature in the repository, then run something like:</p>
-            <PromptBlock>
-              {`codex "Improve this code."`}
-            </PromptBlock>
-            <p>Note what Codex CLI does: which files it touches, what it changes, and whether the result matches your intent.</p>
+            <p>Instead of handing Codex CLI one large task, split it into at least three prompts. Review the diff between each step and only continue when you are satisfied with what was produced.</p>
+            <ol className="list-decimal space-y-2 pl-5">
+              <li>Pick a target: a new feature, a refactor, extra error handling, or better CLI output.</li>
+              <li>Write a first prompt that covers only the first logical step.</li>
+              <li>Review what changed and verify it works before moving on.</li>
+              <li>Write a second prompt that builds on the first result.</li>
+              <li>Continue until the full change is complete, then review the whole diff end-to-end.</li>
+            </ol>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Step 2: run the good prompt</CardTitle>
-            <CardDescription>Same target, but with objective, context, constraints, and an output request.</CardDescription>
+            <CardTitle>Example sequence</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-            <p>Undo the previous changes, then rerun with a specific prompt, for example:</p>
-            <PromptBlock>
-              {`codex "Refactor tasker/task_service.py to improve readability. Do not change any behavior or public interfaces. Only modify that file. Explain what you changed and why."`}
-            </PromptBlock>
-            <p>Compare the diff, scope, and explanation to what the bad prompt produced.</p>
+          <CardContent className="space-y-4">
+            {showPrompts ? (
+              <>
+                <PromptBlock>
+                  {`# Step 1 — understand and plan\ncodex "Look at the tasker CLI entry point and describe how arguments are parsed and passed to the task service. Do not make any changes yet."`}
+                </PromptBlock>
+                <PromptBlock>
+                  {`# Step 2 — make the first change\ncodex "Add a --format flag that accepts 'plain' or 'json'. For now it only needs to be parsed and stored; it does not need to change output yet. Keep the change minimal."`}
+                </PromptBlock>
+                <PromptBlock>
+                  {`# Step 3 — wire up the behaviour\ncodex "Now use the --format flag to change how tasks are printed. When 'json' is chosen, output a JSON array of task objects. Do not touch any other behaviour."`}
+                </PromptBlock>
+                <PromptBlock>
+                  {`# Step 4 — review and tighten\ncodex "Review everything you changed across all three steps. Remove any dead code, fix any inconsistencies, and make sure the flag is documented in the help text."`}
+                </PromptBlock>
+              </>
+            ) : (
+              <Button variant="outline" onClick={() => setShowPrompts(true)}>Click me for example prompts</Button>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -352,10 +401,10 @@ function OptionalExerciseSection() {
         </CardHeader>
         <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
           {[
-            'Which prompt produced a smaller, more focused diff?',
-            'Did the bad prompt touch files you did not expect?',
-            'Was the explanation from the good prompt more useful?',
-            'What would you add to the bad prompt to make it equally precise?',
+            'Did splitting the task into steps lead to smaller, easier-to-review diffs?',
+            'At which step did Codex CLI surprise you — in a good or bad way?',
+            'Did an earlier step constrain or help the direction of a later one?',
+            'Would a single large prompt have produced a better or worse result?',
           ].map((item) => (
             <div key={item} className="rounded-2xl border p-3">
               {item}
