@@ -280,7 +280,7 @@ function FeatureExerciseSection() {
             <CardTitle>Add a --verbose flag</CardTitle>
             <CardDescription>Work in small steps and inspect the result carefully.</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm leading-6">
+          <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
             <ol className="list-decimal space-y-2 pl-5">
               <li>Run Codex CLI in the repository.</li>
               <li>Inspect the repository briefly or ask Codex CLI to explain it.</li>
