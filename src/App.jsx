@@ -104,6 +104,15 @@ function WelcomeSection({ onNavigate }) {
       />
 
       <CloneCard />
+      <Card>
+        <CardHeader>
+          <CardTitle>Create Python virtual environment</CardTitle>
+          <CardDescription>Set up a Python virtual environment and install dependencies.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <PromptBlock>{`python -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt`}</PromptBlock>
+        </CardContent>
+      </Card>
       <div className="grid gap-4">
         <Card>
           <CardHeader>
@@ -141,7 +150,7 @@ function MentalModelSection() {
         description="Codex CLI does more than answer questions. It can inspect files, propose changes, and work through tasks inside a repository."
       />
       <div className="rounded-2xl border border-yellow-500/40 bg-yellow-500/10 px-4 py-3 text-sm leading-6 text-yellow-200">
-        <span className="font-semibold">Important: </span>Only open Codex CLI in a directory it is allowed to read. Do not use it on customers' code unless explicitly allowed by the customer.
+        <span className="font-semibold">Important: </span>Only open Codex CLI in a directory it is allowed to read. Do not use it in customers' repositories unless the customer allows for use of coding agents.
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
@@ -149,9 +158,9 @@ function MentalModelSection() {
             <CardTitle>How to think about Codex CLI</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-            <p>Chat gives you answers. An agent can take a goal, inspect the environment, and help execute steps toward that goal.</p>
+            <p>An agent can take a goal, inspect the environment, and help execute steps toward that goal. However it needs clear instructions and constraints to operate safely and effectively.</p>
             <p>That makes prompt quality more important. A vague prompt leaves too much room for guesswork and increases the risk of surprising changes.</p>
-            <p>For those just starting out with coding agents, the safest workflow is: ask it to explain, then make a small change, then review the result carefully.</p>
+            <p>The safest workflow is iterative: ask it to explain, then make a small change, then review the result carefully.</p>
           </CardContent>
         </Card>
         <Card>
@@ -238,6 +247,7 @@ function RefactoringDemoSection() {
               <div className="mb-2 font-medium">Think of the following in your prompts:</div>
               <BulletList items={['Objective', 'Context', 'Constraints', 'Scope', 'Output request']} />
             </div>
+            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Since this prompt is going to edit the code, the importance of reviewing becomes prevalent.</p>
           </CardContent>
         </Card>
         <Card>
@@ -270,14 +280,20 @@ function FeatureExerciseSection() {
             <CardTitle>Add a --verbose flag</CardTitle>
             <CardDescription>Work in small steps and inspect the result carefully.</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
+          <CardContent className="space-y-4 text-sm leading-6">
             <ol className="list-decimal space-y-2 pl-5">
-              <li>Inspect the repository briefly.</li>
               <li>Run Codex CLI in the repository.</li>
-              <li>Write your first prompt.</li>
+              <li>Inspect the repository briefly or ask Codex CLI to explain it.</li>
+              <li>Think about how you would implement the step yourself.</li>
+              <li>Write a prompt that clearly describes the desired change.</li>
+              <li>Make sure your prompt includes the necessary context and constraints.</li>
               <li>Review the changed files.</li>
               <li>Refine the prompt if the result is too broad or unclear.</li>
             </ol>
+            <div>
+              <div className="mb-2 font-bold">Think of the following in your prompts:</div>
+              <BulletList items={['Objective', 'Context', 'Constraints', 'Scope', 'Output request']} />
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -341,7 +357,7 @@ function TestExerciseSection() {
           </CardHeader>
           <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
             <ol className="list-decimal space-y-2 pl-5">
-              <li>Explore the repository to understand the reporting logic.</li>
+              <li>Explore the repository to understand the reporting module or ask Codex CLI to explain it.</li>
               <li>Write a prompt that describes what you want tested and how.</li>
               <li>Inspect the generated test file.</li>
               <li>Run the tests and check that they pass.</li>
@@ -409,6 +425,8 @@ function OptionalExerciseSection() {
             <p>Instead of handing Codex CLI one large task, split it into at least three prompts. Review the diff between each step and only continue when you are satisfied with what was produced.</p>
             <ol className="list-decimal space-y-2 pl-5">
               <li>Pick a target: a new feature, a refactor, extra error handling, or better CLI output.</li>
+              <li>If you don't want to pick yourself, try creating a new --format flag for the tasker CLI.</li>
+              <li>Think about how you would implement the change step by step yourself.</li>
               <li>Write a first prompt that covers only the first logical step.</li>
               <li>Review what changed and verify it works before moving on.</li>
               <li>Write a second prompt that builds on the first result.</li>
@@ -592,7 +610,7 @@ export default function App() {
               <div className="space-y-2">
                 <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">Codex CLI Workshop</h1>
                 <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-                  A hands-on introduction to using Codex CLI effectively. Follow along during the workshop or use this as a reference for your first few sessions with Codex CLI.
+                  A hands-on (or hands-off?) introduction to using Codex CLI effectively. Follow along during the workshop or use this as a reference for your first few sessions with Codex CLI.
                 </p>
               </div>
             </div>
