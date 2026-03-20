@@ -567,16 +567,23 @@ function WrapUpSection() {
           <CardDescription>Good first real-world tasks after the workshop.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          {[
-            'Ask Codex CLI to explain a codebase you work on',
-            'Refactor one messy file without changing behavior',
-            'Add one small feature with clear constraints',
-            'Generate tests for a focused module',
-          ].map((item) => (
-            <div key={item} className="rounded-2xl bg-muted p-3 text-sm leading-6">
-              {item}
-            </div>
-          ))}
+          <div className="grid gap-3 md:grid-cols-2">
+            {[
+              { text: "Configure your agent further", href: "https://developers.openai.com/codex/config-basic" },
+              { text: "Read more about custom instructions with AGENTS.md", href: "https://developers.openai.com/codex/guides/agents-md" },
+              { text: "Read more about Model Context Protocol", href: "https://developers.openai.com/codex/mcp" },
+              { text: "Watch a colleague create a small PoC with Codex CLI", href: "https://drive.google.com/file/d/1SLBW-UFATGyndnP5JWyXxFSujyXa_JA9/view?usp=sharing" },
+            ].map((item) => (
+              <Button
+                key={typeof item === "string" ? item : item.text}
+                variant="link"
+                className="h-auto justify-start rounded-2xl bg-muted p-3 text-sm leading-6"
+                {...(typeof item === "object" && { asChild: true })}
+              >
+                {typeof item === "object" ? <a href={item.href}>{item.text}</a> : item}
+              </Button>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>
