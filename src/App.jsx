@@ -103,11 +103,25 @@ function WelcomeSection({ onNavigate }) {
         description="This website gives you an overview of the workshop flow, instructions, prompts, and exercises to get started with Codex CLI."
       />
 
+      <Card>
+
+        <CardHeader>
+          <CardTitle>Get Codex CLI</CardTitle>
+          <CardDescription>If you don't have Codex CLI or another AI agent installed already:</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Install with npm</p>
+          <PromptBlock>npm install -g @openai/codex</PromptBlock>
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Install with Homebrew</p>
+          <PromptBlock>brew install codex</PromptBlock>
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Run codex and sign in.</p>
+        </CardContent>
+      </Card>
       <CloneCard />
       <Card>
         <CardHeader>
-          <CardTitle>Create Python virtual environment</CardTitle>
-          <CardDescription>Set up a Python virtual environment and install dependencies.</CardDescription>
+          <CardTitle>(Optional) Create Python virtual environment</CardTitle>
+          <CardDescription>If you want to run pytest, set up a Python virtual environment and install dependencies.</CardDescription>
         </CardHeader>
         <CardContent>
           <PromptBlock>{`python -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt`}</PromptBlock>
