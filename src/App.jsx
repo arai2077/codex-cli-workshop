@@ -564,7 +564,7 @@ function WrapUpSection() {
       <Card>
         <CardHeader>
           <CardTitle>Try this next</CardTitle>
-          <CardDescription>Good first real-world tasks after the workshop.</CardDescription>
+          <CardDescription>Learn more about Codex CLI after the workshop.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="grid gap-3 md:grid-cols-2">
@@ -580,7 +580,7 @@ function WrapUpSection() {
                 className="h-auto justify-start rounded-2xl bg-muted p-3 text-sm leading-6"
                 {...(typeof item === "object" && { asChild: true })}
               >
-                {typeof item === "object" ? <a href={item.href}>{item.text}</a> : item}
+                {typeof item === "object" ? <a href={item.href} target="_blank" rel="noopener noreferrer">{item.text}</a> : item}
               </Button>
             ))}
           </div>
